@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<a href="/v2" class="btn">Назад</a>
+<body>
+<h1>Досье</h1>
+<div>ID <span th:text="${inventory.getId}"></span></div>
+<div>Имя: <span th:text="${inventory.getName}"></span></div>
+<div>Описание: <span th:text="${inventory.description}"></span></div>
+</body>
+</html>
