@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Все карты</title>
+</head>
+<body>
+<h1>Все карты</h1>
+<a href="/v3/create" class="btn">Добавить инвентарь</a>
+<table>
+    <thead>
+    <tr>
+        <th>ID карты</th>
+        <th>Количество позиций</th>
+        <th>Действия</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="card : ${cards}">
+        <!-- Показываем ID карты -->
+        <td th:text="${card.id}">ID карты</td>
+
+        <!-- Показываем количество позиций в карте -->
+        <td th:text="${#lists.size(card.positions)}">Количество позиций</td>
+
+        <td>
+            <!-- Ссылка на добавление позиции в карту -->
+            <a th:href="@{/card/{cardId}/add-position(cardId=${card.id})}">Добавить позицию</a>
+
+            <!-- Ссылка на удаление карты -->
+            <a th:href="@{/card/delete/{id}(id=${card.id})}">Удалить</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

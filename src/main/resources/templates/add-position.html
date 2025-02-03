@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Добавить позицию в карту</title>
+</head>
+<body>
+<h1>Добавить позицию в карту</h1>
+<form action="#" th:action="@{/card/{cardId}/add-position(cardId=${card.id})}" method="post">
+  <label for="inventory">Выберите товар:</label>
+  <select id="inventory" name="inventoryId">
+    <option th:each="inventory : ${inventories}"
+            th:value="${inventory.id}"
+            th:text="${inventory.name}">Товар</option>
+  </select>
+
+  <label for="quantity">Количество:</label>
+  <input type="number" id="quantity" name="quantity" required/>
+
+  <button type="submit">Добавить позицию</button>
+</form>
+</body>
+</html>

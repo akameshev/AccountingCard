@@ -1,9 +1,12 @@
 package kz.csoqamqor.AccountingCard.service;
 
+import jakarta.transaction.Transactional;
 import kz.csoqamqor.AccountingCard.model.Card;
 import kz.csoqamqor.AccountingCard.model.Inventory;
 import kz.csoqamqor.AccountingCard.model.Position;
 import kz.csoqamqor.AccountingCard.repository.CardRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +18,7 @@ public class CardService {
     @Autowired
     private final InventoryService inventoryService;
     private final CardRepository cardRepository;
+    private static final Logger logger = LoggerFactory.getLogger(CardService.class);
     public CardService(CardRepository cardRepository, InventoryService inventoryService) {
         this.cardRepository = cardRepository;
         this.inventoryService = inventoryService;
@@ -42,7 +46,9 @@ public class CardService {
         cardRepository.deleteById(id);
     }
 
-    public Optional<Inventory> addInventoryToCard(Long cardId,Long inventoryId,Double quantity) {
+    @Transactional
+    public Optional<Card> addInventoryToCard(
+            Long cardId,Long inventoryId,Double quantity) {
         Optional<Inventory> inventoryOptional = inventoryService.getInventoryById(inventoryId);
         if (inventoryOptional.isPresent()) {
             Inventory inventory = inventoryOptional.get();
@@ -58,7 +64,8 @@ public class CardService {
                 Card card = cardOptional.get();
                 card.addPosition(position);
                 this.updateCard(card.getId(), card);
-            } return Optional.empty();
+                return Optional.of(card);
+            }
         }
         return Optional.empty();
     }

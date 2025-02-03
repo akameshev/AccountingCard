@@ -11,7 +11,9 @@ public class Card {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "card_id")
     private List<Position> positions;
 
     public Card(Long id, List<Position> positions) {

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Создание карты</title>
+</head>
+<body>
+<h1>Создание новой карты</h1>
+<form action="/create" method="post">
+  <label for="name">Имя карты:</label>
+  <input type="text" id="name" name="name" required/>
+
+  <button type="submit">Создать карту</button>
+</form>
+</body>
+</html>
