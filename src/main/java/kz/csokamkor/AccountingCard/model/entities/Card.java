@@ -15,8 +15,8 @@ public class Card {
 
     private String userName;
 
-    @OneToMany
-    private List<Inventory> cardInventories;
+    @ManyToMany
+    private List<Inventory> cardInventories = new ArrayList<>();
 
     private LocalDate creationDate;
 
@@ -54,7 +54,7 @@ public class Card {
     }
 
     public List<Inventory> addInventory(Inventory inventory) {
-        this.getCardInventories().addFirst(inventory);
+        this.getCardInventories().add(inventory);
         return cardInventories;
     }
 }

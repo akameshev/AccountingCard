@@ -1,7 +1,6 @@
 package kz.csokamkor.AccountingCard.controller;
 
 import kz.csokamkor.AccountingCard.model.entities.Card;
-import kz.csokamkor.AccountingCard.model.entities.Inventory;
 import kz.csokamkor.AccountingCard.service.CardService;
 import kz.csokamkor.AccountingCard.service.InventoryService;
 import org.springframework.http.ResponseEntity;
@@ -48,14 +47,11 @@ public class CardController {
     @PutMapping("/{id}")
     public ResponseEntity<Card> updateCard(@PathVariable Long id,@RequestBody Card card) {
         Optional<Card> optionalCard = Optional.of(cardService.findById(id));
-        if (optionalCard.isPresent()) {
-            Card updatedCard = optionalCard.get();
-            updatedCard.setCardInventories(card.getCardInventories());
-            updatedCard.setCreationDate(LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), LocalDate.now().getDayOfMonth()));
-            cardService.save(updatedCard);
-            return ResponseEntity.ok(updatedCard);
-        }
-        return ResponseEntity.notFound().build();
+        Card updatedCard = optionalCard.get();
+        updatedCard.setCardInventories(card.getCardInventories());
+        updatedCard.setCreationDate(LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), LocalDate.now().getDayOfMonth()));
+        cardService.save(updatedCard);
+        return ResponseEntity.ok(updatedCard);
     }
 
     @PutMapping("/{id}/{inventoryId}")
