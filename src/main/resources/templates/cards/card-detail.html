@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        .header {
+            margin-bottom: 20px;
+        }
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+<a href="/" class="btn">На главную</a>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Имя</th>
+        <th>Описание</th>
+        <th>Ед.изм</th>
+        <th>Количество</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td><span th:text="${card.id}"></span></td>
+        <td><span th:text="${card.userName}"></span></td>
+        <td><span th:text="${card.creationDate}"></span></td>
+        <td><table>
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>Наименование</th>
+                    <th>Единица измерения</th>
+                    <th>Количество</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="inventory: ${basket}">
+                    <td><span th:text="${inventory.id}"></span></td>
+                    <td><span th:text="${inventory.name}"></span></td>
+                    <td><span th:text="${inventory.unitOfMeasurement}"></span></td>
+                    <td><span th:text="${inventory.quantity}"></span></td>
+                </tr>
+            </tbody>
+        </table></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

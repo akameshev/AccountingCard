@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Добавить инвентарь</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    .header {
+      margin-bottom: 20px;
+    }
+    .btn {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .btn:hover {
+      background-color: #45a049;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    label {
+      margin-bottom: 5px;
+    }
+    input, select {
+      padding: 8px;
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+<form action="/cards/add" method="post" th:action="@{/cards/add}">
+
+  <label for="userName">Имя пользователя</label>
+  <input type="text" id="userName" name="userName" placeholder="Задайте имя пользователя" required>
+
+  <label for="creationDate">Дата создания:</label>
+  <input type="date" id="creationDate" name="creationDate" placeholder="Задайте дату карты" required>
+  <button type="submit" class="btn">Сохранить Карту</button>
+  <a href="/cards/all" class="btn">Назад</a>
+</form>
+</body>
+</html>
