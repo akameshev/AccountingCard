@@ -1,10 +1,13 @@
 package kz.csokamkor.AccountingCard.controller;
 
 import kz.csokamkor.AccountingCard.model.entities.Card;
+import kz.csokamkor.AccountingCard.model.entities.Inventory;
 import kz.csokamkor.AccountingCard.service.CardService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/cards")
@@ -32,6 +35,7 @@ public class CardPageController {
     public String addCard() {
         return "cards/card-add";
     }
+
     @PostMapping("/add")
     public String createCard(@ModelAttribute("card") Card card) {
         cardService.save(card);
@@ -43,5 +47,15 @@ public class CardPageController {
         cardService.deleteById(id);
         return "redirect:/cards";
     }
+
+    @PutMapping("/{id}")
+    public String updateCard(@ModelAttribute("card") Card card, @PathVariable Long id) {
+        Optional<Card> cardOptional = Optional.of(cardService.findById(id));
+        Card cardToUpdate = cardOptional.get();
+        cardToUpdate.setCardInventories(card.getCardInventories());
+        cardService.save(cardToUpdate);
+        return "redirect:/cards";
+    }
+
 
 }
