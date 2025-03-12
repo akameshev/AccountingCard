@@ -1,56 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Main Page</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
+      font-family: 'Arial', sans-serif;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 0;
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
     }
+
+    h1 {
+      font-size: 36px;
+      color: #333;
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+
+    .container {
+      background: #fff;
+      padding: 40px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      width: 60%;
+      text-align: center;
+    }
+
     table {
       width: 100%;
       border-collapse: collapse;
+      margin-top: 20px;
     }
+
     th, td {
-      padding: 10px;
-      text-align: left;
-      border-bottom: 1px solid #ddd;
+      padding: 15px;
+      text-align: center;
+      border: 1px solid #ddd;
     }
+
     th {
-      background-color: #f4f4f4;
-    }
-    .header {
-      margin-bottom: 20px;
-    }
-    .btn {
       background-color: #4CAF50;
       color: white;
+    }
+
+    td a {
+      display: inline-block;
       padding: 10px 20px;
-      border: none;
-      cursor: pointer;
+      background-color: #007BFF;
+      color: white;
       text-decoration: none;
+      border-radius: 5px;
+      transition: background-color 0.3s ease, transform 0.2s ease;
     }
-    .btn:hover {
-      background-color: #45a049;
+
+    td a:hover {
+      background-color: #0056b3;
+      transform: scale(1.05);
     }
+
+    .footer {
+      margin-top: 20px;
+      color: #777;
+      font-size: 14px;
+    }
+
   </style>
 </head>
 <body>
-<h1>Main Page</h1>
+
+<div class="container">
+  <h1>Main Page</h1>
+
   <table>
     <thead>
-      <tr>
-        <th>просмотр инвентаря</th>
-        <th>добавление инвертаря</th>
-        <th>Просмотр карточек</th>
-      </tr>
+    <tr>
+      <th>Просмотр инвентаря</th>
+      <th>Добавление инвентаря</th>
+      <th>Просмотр карточек</th>
+    </tr>
     </thead>
     <tbody>
-      <tr>
-        <td><a href="all">перейти</a></td>
-        <td><a href="add">перейти</a> </td>
-        <td><a href="/cards">перейти</a> </td>
-      </tr>
+    <tr>
+      <td><a href="all">Перейти</a></td>
+      <td><a href="add">Перейти</a></td>
+      <td><a href="/cards">Перейти</a></td>
+    </tr>
     </tbody>
   </table>
+</div>
+
 </body>
 </html>

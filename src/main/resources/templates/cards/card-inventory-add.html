@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h3><span th:text="${card.id}"></span></h3>
+    <h3><span th:text="${card.userName}"></span></h3>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Имя</th>
+                <th>Описание</th>
+                <th>Ед.изм</th>
+                <th>Количество</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="inventory : ${inventories}">
+                <td><span th:text="${inventory.id}"></span></td>
+                <td><span th:text="${inventory.name}"></span></td>
+                <td><span th:text="${inventory.description}"></span></td>
+                <td><span th:text="${inventory.unitOfMeasurement}"></span></td>
+                <td><span th:text="${inventory.quantity}"></span></td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>
