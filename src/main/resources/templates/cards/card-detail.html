@@ -45,7 +45,7 @@
         <th>ID</th>
         <th>Имя</th>
         <th>Описание</th>
-        <th>Ед.изм</th>
+        <th>Инвентарь</th>
         <th>Количество</th>
     </tr>
     </thead>
@@ -60,7 +60,7 @@
                     <th>id</th>
                     <th>Наименование</th>
                     <th>Единица измерения</th>
-                    <th>Количество</th>
+                    <th>Количество на складе</th>
                 </tr>
             </thead>
             <tbody>
@@ -69,36 +69,9 @@
                     <td><span th:text="${inventory.name}"></span></td>
                     <td><span th:text="${inventory.unitOfMeasurement}"></span></td>
                     <td><span th:text="${inventory.quantity}"></span></td>
-                    <td><span></span></spa></td>
                 </tr>
             </tbody>
         </table></td>
-        <th><a th:href="@{/cards/{id}/add-inventory (id=${card.id})}">Перейти</a></th>
-    </tr>
-    </tbody>
-</table>
-    <h2>Добавить из склада</h2>
-<table>
-    <thead>
-    <tr>
-        <th>id</th>
-        <th>Наименование</th>
-        <th>Единица измерения</th>
-        <th>Количество</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="inventory: ${inventories}">
-        <td><span th:text="${inventory.id}"></span></td>
-        <td><span th:text="${inventory.name}"></span></td>
-        <td><span th:text="${inventory.unitOfMeasurement}"></span></td>
-        <td><span th:text="${inventory.quantity}"></span></td>
-        <td><span><form action="">
-            <label for="amount">Списать</label>
-            <input type="number" id="amount" name="amount">
-
-            <button type="submit">Списать</button>
-        </form></span></td>
     </tr>
     </tbody>
 </table>
