@@ -1,7 +1,9 @@
 package kz.csokamkor.AccountingCard.controller;
 
 import kz.csokamkor.AccountingCard.model.entities.Card;
+import kz.csokamkor.AccountingCard.model.entities.CardInventory;
 import kz.csokamkor.AccountingCard.model.entities.Inventory;
+import kz.csokamkor.AccountingCard.service.CardInventoryService;
 import kz.csokamkor.AccountingCard.service.CardService;
 import kz.csokamkor.AccountingCard.service.InventoryService;
 import org.springframework.stereotype.Controller;
@@ -16,10 +18,14 @@ import java.util.Optional;
 public class CardPageController {
     private final CardService cardService;
     private final InventoryService inventoryService;
+    CardInventoryService cardInventoryService;
 
-    public CardPageController(CardService cardService, InventoryService inventoryService) {
+    public CardPageController(CardService cardService,
+                              InventoryService inventoryService,
+                              CardInventoryService cardInventoryService) {
         this.cardService = cardService;
         this.inventoryService = inventoryService;
+        this.cardInventoryService = cardInventoryService;
     }
 
     @GetMapping("/all")
@@ -28,9 +34,9 @@ public class CardPageController {
         return "cards/cards-all";
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/detail/{id}")
     public String getCardById(@PathVariable Long id, Model model) {
-        model.addAttribute("basket",cardService.findById(id).getCardInventories());
+        model.addAttribute("basket", cardService.findById(id).getCardInventories());
         model.addAttribute("card", cardService.findById(id));
         List<Inventory> inventories = inventoryService.findAll().get();
         model.addAttribute("inventories", inventories);
@@ -63,13 +69,38 @@ public class CardPageController {
         return "redirect:/cards";
     }
 
-    @GetMapping("/{id}/add-inventory")
-    public String addInventory(@PathVariable Long id, Model model) {
-        Card card = cardService.findById(id);
-        List<Inventory> inventories = inventoryService.findAll().get();
-        model.addAttribute("card", card);
-        model.addAttribute("inventories",inventories);
-        return "cards/card-inventory-add";
+// region PutMethod_Old
+//    @PutMapping("/{id}/add-inventory/{InventoryId}/{amount}")
+//    public String addInventory(@PathVariable Long id,
+//                               @PathVariable Long inventoryId,
+//                               @PathVariable double amount) {
+//        CardInventory cardInventory = new CardInventory();
+//        cardInventoryService.addCardInventory(cardInventory, inventoryId, amount);
+//        Optional<Card> cardOptional = Optional.ofNullable(cardService.findById(id));
+//        if (cardOptional.isPresent()) {
+//            Card card = cardOptional.get();
+//            card.addCardInventory(cardInventory);
+//            cardService.save(card);
+//            return "cards/" + id;
+//        }
+//        return "not-found";
+//    }
+    //endregion
+
+    @PostMapping("/{id}/add-inventory")
+    public String addInventory(@PathVariable Long id,
+                               @RequestParam Long inventoryId,
+                               @RequestParam double amount) {
+        CardInventory cardInventory = new CardInventory();
+        cardInventoryService.addCardInventory(cardInventory, inventoryId, amount);
+        Optional<Card> cardOptional = Optional.ofNullable(cardService.findById(id));
+        if (cardOptional.isPresent()) {
+            Card card = cardOptional.get();
+            card.addCardInventory(cardInventory);
+            cardService.save(card);
+            return "redirect:/cards/detail/" + id.toString();
+        }
+        return "not-found";
     }
 
 

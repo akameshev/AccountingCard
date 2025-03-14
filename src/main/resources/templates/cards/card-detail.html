@@ -93,7 +93,12 @@
                 <td><span th:text="${inventory.getDescription()}"></span></td>
                 <td><span th:text="${inventory.getUnitOfMeasurement()}"></span></td>
                 <td><span th:text="${inventory.getQuantity()}"></span></td>
-                <td></td>
+                <td><form th:action="@{'/cards/' + ${card.id} + '/add-inventory'}" method="post">
+                    <input type="hidden" name="inventoryId" th:value="${inventory.id}">
+                    <label for="amount">Укажите кол-во</label>
+                    <input type="number" id="amount" name="amount" placeholder="количество" required step="0.01">
+                    <button type="submit" class="btn">Добавить</button>
+                </form></td>
             </tr>
         </tbody>
     </table>
