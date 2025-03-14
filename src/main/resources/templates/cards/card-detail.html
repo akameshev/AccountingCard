@@ -75,5 +75,27 @@
     </tr>
     </tbody>
 </table>
+    <h2>Добавить инвентарь со склада</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Имя</th>
+                <th>Описание</th>
+                <th>Ед.измерения</th>
+                <th>Остаток на складе</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="inventory:${inventories}">
+                <td><span th:text="${inventory.getId()}"></span></td>
+                <td><span th:text="${inventory.getName()}"></span></td>
+                <td><span th:text="${inventory.getDescription()}"></span></td>
+                <td><span th:text="${inventory.getUnitOfMeasurement()}"></span></td>
+                <td><span th:text="${inventory.getQuantity()}"></span></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
 </body>
 </html>
