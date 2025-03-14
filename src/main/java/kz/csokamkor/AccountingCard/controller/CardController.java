@@ -51,7 +51,6 @@ public class CardController {
 
     @PostMapping
     public ResponseEntity<Card> createCard(@RequestBody Card card) {
-        card.setCreationDate(LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), LocalDate.now().getDayOfMonth()));
         cardService.save(card);
         return ResponseEntity.ok(card);
     }

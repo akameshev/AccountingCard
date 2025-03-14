@@ -40,18 +40,32 @@
 </head>
 <body>
 <h1 class="header">Список Карточек</h1>
+<form method="get" th:action="@{/cards/all}">
+    <label for="dateFrom">С:</label>
+    <input type="date" id="dateFrom" name="dateFrom" th:value="${dateFrom}">
 
+    <label for="dateTo">По:</label>
+    <input type="date" id="dateTo" name="dateTo" th:value="${dateTo}">
+
+    <button type="submit" class="btn">Фильтровать</button>
+    <a href="/cards/all" class="btn" style="background-color: #f44336;">Очистить</a>
+</form>
+    </br>
 <a href="/cards/add" class="btn">Добавить Карточку</a>
 <a href="/inventories/all" class="btn">Просмотр инвентаря</a>
 <a href="/" class="btn">На главную</a>
+    <br>
+
 <table>
     <thead>
     <tr>
         <th>ID</th>
         <th>Пользователь</th>
         <th>Дата составления</th>
+        <th>Содержит инвентарь</th>
         <th>Перейти</th>
         <th>Удалить</th>
+
     </tr>
     </thead>
     <tbody>
@@ -59,6 +73,10 @@
         <td><span th:text="${card.id}"></span></td>
         <td><span th:text="${card.userName}"></span></td>
         <td><span th:text="${card.creationDate}"></span></td>
+        <td>
+            <span th:if="${card.isHasItem()}" style="color: green;">✔</span>
+            <span th:unless="${card.isHasItem()}" style="color: red;">✘</span>
+        </td>
         <td><a th:href="@{/cards/detail/{id}(id=${card.id})}">Изменить карту</a></td>
         <td><form th:action="@{/cards/{id}(id=${card.id})}" method="post">
             <input type="hidden" name="_method" value="DELETE"/>

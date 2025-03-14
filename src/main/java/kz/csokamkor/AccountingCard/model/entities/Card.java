@@ -24,6 +24,8 @@ public class Card {
 
     private LocalDate creationDate;
 
+    public boolean hasItem;
+
     public LocalDate getCreationDate() {
         return creationDate;
     }
@@ -42,10 +44,20 @@ public class Card {
 
 
     public List<CardInventory> getCardInventories() {
+        if (cardInventories != null) {
+            hasItem = true;
+        } else {
+            hasItem = false;
+        }
         return cardInventories;
     }
 
     public void setCardInventories(List<CardInventory> cardInventories) {
+        if (cardInventories != null) {
+            hasItem = true;
+        } else {
+            hasItem = false;
+        }
         this.cardInventories = cardInventories;
     }
 
@@ -57,14 +69,24 @@ public class Card {
         this.userName = userName;
     }
 
+    public boolean isHasItem() {
+        return hasItem;
+    }
+
+    public void setHasItem(boolean hasItem) {
+        this.hasItem = hasItem;
+    }
+
     public List<CardInventory> addCardInventory(CardInventory cardInventory) {
         cardInventories.add(cardInventory);
+        hasItem = true;
         return cardInventories;
     }
 
     public CardInventory findCardInventoryByName(String name) {
         for (CardInventory cardInventory : cardInventories) {
             if (cardInventory.getName().equals(name)) {
+                hasItem = true;
                 return cardInventory;
             }
 

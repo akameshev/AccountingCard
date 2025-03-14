@@ -6,6 +6,7 @@ import kz.csokamkor.AccountingCard.model.entities.Inventory;
 import kz.csokamkor.AccountingCard.service.CardInventoryService;
 import kz.csokamkor.AccountingCard.service.CardService;
 import kz.csokamkor.AccountingCard.service.InventoryService;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/cards")
@@ -32,9 +34,28 @@ public class CardPageController {
     /**
      * @return общий список сущетсвующих карточек учета инвентаря
      */
+//    @GetMapping("/all")
+//    public String getAllCards(Model model) {
+//        model.addAttribute("cards", cardService.findAll());
+//        return "cards/cards-all";
+//    }
+
+
     @GetMapping("/all")
-    public String getAllCards(Model model) {
-        model.addAttribute("cards", cardService.findAll());
+    public String getAllCards(@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateFrom,
+                              @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateTo,
+                              Model model) {
+        List<Card> allCards = cardService.findAll();
+
+        // Фильтрация по дате
+        List<Card> filteredCards = allCards.stream()
+                .filter(card -> (dateFrom == null || !card.getCreationDate().isBefore(dateFrom)) &&
+                        (dateTo == null || !card.getCreationDate().isAfter(dateTo)))
+                .collect(Collectors.toList());
+
+        model.addAttribute("cards", filteredCards);
+        model.addAttribute("dateFrom", dateFrom);
+        model.addAttribute("dateTo", dateTo);
         return "cards/cards-all";
     }
 
@@ -59,7 +80,6 @@ public class CardPageController {
 
     @PostMapping("/add")
     public String createCard(@ModelAttribute("card") Card card) {
-        card.setCreationDate(LocalDate.now());
         cardService.save(card);
         return "redirect:/cards/all";
     }
