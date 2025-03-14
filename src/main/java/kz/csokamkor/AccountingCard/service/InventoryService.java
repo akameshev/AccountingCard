@@ -4,6 +4,7 @@ import kz.csokamkor.AccountingCard.model.entities.Inventory;
 import kz.csokamkor.AccountingCard.repository.InventoryRepository;
 import org.springframework.stereotype.Service;
 
+import java.beans.Transient;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,6 +23,7 @@ public class InventoryService {
         List<Inventory> inventory = inventoryRepository.findAll();
         return Optional.of(inventory);
     }
+    @Transient
     public Inventory save(Inventory inventory) {
         return inventoryRepository.save(inventory);
     }
