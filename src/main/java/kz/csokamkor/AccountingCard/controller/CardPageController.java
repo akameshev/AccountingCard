@@ -91,15 +91,35 @@ public class CardPageController {
     public String addInventory(@PathVariable Long id,
                                @RequestParam Long inventoryId,
                                @RequestParam double amount) {
-        CardInventory cardInventory = new CardInventory();
-        cardInventoryService.addCardInventory(cardInventory, inventoryId, amount);
-        Optional<Card> cardOptional = Optional.ofNullable(cardService.findById(id));
+        Optional<Card> cardOptional = Optional.of(cardService.findById(id));
         if (cardOptional.isPresent()) {
-            Card card = cardOptional.get();
-            card.addCardInventory(cardInventory);
-            cardService.save(card);
-            return "redirect:/cards/detail/" + id.toString();
+            if (cardService.findById(id)
+                    .findCardInventoryByName(inventoryService
+                            .findById(inventoryId)
+                            .get()
+                            .getName()) != null) {
+                CardInventory cardInventory = cardOptional
+                        .get()
+                        .findCardInventoryByName(inventoryService.findById(inventoryId)
+                                .get()
+                                .getName());
+                cardInventory.setQuantity(cardInventory.getQuantity() + amount);
+                cardInventoryService.save(cardInventory);
+                Inventory inventory = inventoryService.findById(inventoryId).get();
+                inventory.changeQuantity(amount);
+                inventoryService.save(inventory);
+                return "redirect:/cards/detail/" + id.toString();
+
+            } else {
+                CardInventory cardInventory = new CardInventory();
+                cardInventoryService.addCardInventory(cardInventory, inventoryId, amount);
+                Card card = cardOptional.get();
+                card.addCardInventory(cardInventory);
+                cardService.save(card);
+                return "redirect:/cards/detail/" + id.toString();
+            }
         }
+
         return "not-found";
     }
 

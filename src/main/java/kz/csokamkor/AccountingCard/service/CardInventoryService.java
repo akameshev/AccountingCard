@@ -49,5 +49,9 @@ public class CardInventoryService {
         return null;
     }
 
+    public Optional<CardInventory> findByName(String name) {
+        return cardInventoryRepository.findByName(name);
+    }
+
 
 }

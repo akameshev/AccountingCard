@@ -57,4 +57,14 @@ public class Card {
         cardInventories.add(cardInventory);
         return cardInventories;
     }
+
+    public CardInventory findCardInventoryByName(String name) {
+        for (CardInventory cardInventory : cardInventories) {
+            if (cardInventory.getName().equals(name)) {
+                return cardInventory;
+            }
+
+        }
+        return null;
+    }
 }

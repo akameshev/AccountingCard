@@ -59,7 +59,7 @@
         <td><span th:text="${card.id}"></span></td>
         <td><span th:text="${card.userName}"></span></td>
         <td><span th:text="${card.creationDate}"></span></td>
-        <td><a th:href="@{/cards/detail/{id}(id=${card.id})}">Перейти</a></td>
+        <td><a th:href="@{/cards/detail/{id}(id=${card.id})}">Изменить карту</a></td>
         <td><form th:action="@{/cards/{id}(id=${card.id})}" method="post">
             <input type="hidden" name="_method" value="DELETE"/>
             <button type="submit" class="btn" style="background-color: #f44336;">Удалить</button>
