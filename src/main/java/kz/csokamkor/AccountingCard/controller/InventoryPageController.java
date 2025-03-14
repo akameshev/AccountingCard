@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller()
-@RequestMapping("/")
+@RequestMapping("/inventories")
 public class InventoryPageController {
     private final InventoryService inventoryService;
 
@@ -52,6 +52,7 @@ public class InventoryPageController {
         inventoryService.deleteById(id);
         return "redirect:/all";
     }
+
 
 
 }

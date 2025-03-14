@@ -45,12 +45,10 @@ public class AccountingCardApplication {
 		Card akameshev = new Card();
 		akameshev.setUserName("akameshev");
 		akameshev.setCreationDate(LocalDate.now());
-		akameshev.setCardInventories(List.of(inventory1, inventory3));
 
 		Card ekirillova = new Card();
 		ekirillova.setUserName("ekirillova");
 		ekirillova.setCreationDate(LocalDate.now());
-		ekirillova.setCardInventories(List.of(inventory2, inventory3));
 
 		CardService cardService = context.getBean(CardService.class);
 		cardService.save(akameshev);

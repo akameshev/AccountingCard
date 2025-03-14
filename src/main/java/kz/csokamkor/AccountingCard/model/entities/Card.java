@@ -15,8 +15,8 @@ public class Card {
 
     private String userName;
 
-    @ManyToMany
-    private List<InventoryItem> cardInventories = new ArrayList<>();
+    @OneToMany
+    private List<CardInventory> cardInventories = new ArrayList<>();
 
     private LocalDate creationDate;
 
@@ -37,11 +37,11 @@ public class Card {
     }
 
 
-    public List<InventoryItem> getCardInventories() {
+    public List<CardInventory> getCardInventories() {
         return cardInventories;
     }
 
-    public void setCardInventories(List<InventoryItem> cardInventories) {
+    public void setCardInventories(List<CardInventory> cardInventories) {
         this.cardInventories = cardInventories;
     }
 
@@ -53,8 +53,8 @@ public class Card {
         this.userName = userName;
     }
 
-    public List<InventoryItem> addInventory(Inventory inventory, Double amount) {
-        this.getCardInventories().add(new InventoryItem(inventory,amount));
+    public List<CardInventory> addCardInventory(CardInventory cardInventory) {
+        cardInventories.add(cardInventory);
         return cardInventories;
     }
 }

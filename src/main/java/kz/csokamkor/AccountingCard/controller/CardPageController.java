@@ -22,7 +22,7 @@ public class CardPageController {
         this.inventoryService = inventoryService;
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public String getAllCards(Model model) {
         model.addAttribute("cards", cardService.findAll());
         return "cards/cards-all";

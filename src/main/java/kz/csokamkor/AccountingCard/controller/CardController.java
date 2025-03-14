@@ -1,7 +1,9 @@
 package kz.csokamkor.AccountingCard.controller;
 
 import kz.csokamkor.AccountingCard.model.entities.Card;
+import kz.csokamkor.AccountingCard.model.entities.CardInventory;
 import kz.csokamkor.AccountingCard.service.CardService;
+import kz.csokamkor.AccountingCard.service.CardInventoryService;
 import kz.csokamkor.AccountingCard.service.InventoryService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -17,10 +19,12 @@ public class CardController {
 
     private final CardService cardService;
     private final InventoryService inventoryService;
+    private final CardInventoryService cardInventoryService;
 
-    public CardController(CardService cardService, InventoryService inventoryService) {
+    public CardController(CardService cardService, InventoryService inventoryService, CardInventoryService cardInventoryService) {
         this.cardService = cardService;
         this.inventoryService = inventoryService;
+        this.cardInventoryService = cardInventoryService;
     }
 
     @GetMapping
@@ -44,23 +48,31 @@ public class CardController {
         return ResponseEntity.ok(card);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Card> updateCard(@PathVariable Long id,@RequestBody Card card) {
-        Optional<Card> optionalCard = Optional.of(cardService.findById(id));
-        Card updatedCard = optionalCard.get();
-        updatedCard.setCardInventories(card.getCardInventories());
-        updatedCard.setCreationDate(LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), LocalDate.now().getDayOfMonth()));
-        cardService.save(updatedCard);
-        return ResponseEntity.ok(updatedCard);
-    }
+//    @PutMapping("/{id}")
+//    public ResponseEntity<Card> updateCard(@PathVariable Long id,@RequestBody Card card) {
+//        Optional<Card> optionalCard = Optional.of(cardService.findById(id));
+//        Card updatedCard = optionalCard.get();
+//        updatedCard.setCardInventories(card.getCardInventories());
+//        updatedCard.setCreationDate(LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), LocalDate.now().getDayOfMonth()));
+//        cardService.save(updatedCard);
+//        return ResponseEntity.ok(updatedCard);
+//    }
 
-    @PutMapping("/{id}/{inventoryId}")
-    public ResponseEntity<Card> updateCardInventories(@PathVariable Long id,@PathVariable Long inventoryId) {
+    @PutMapping("/{id}/{inventoryId}/{quantity}")
+    public ResponseEntity<Card> addCardInventories(@PathVariable Long id,
+                                                   @PathVariable Long inventoryId,
+                                                   @PathVariable double quantity) {
+
+        CardInventory cardInventory = new CardInventory();
+        cardInventoryService.addCardInventory(cardInventory,inventoryId,quantity);
         Optional<Card> optionalCard = Optional.of(cardService.findById(id));
-        Card updatedCard = optionalCard.get();
-        updatedCard.addInventory(inventoryService.findById(inventoryId).get());
-        cardService.save(updatedCard);
-        return ResponseEntity.ok(updatedCard);
+        if (optionalCard.isPresent()) {
+            Card card = optionalCard.get();
+            card.addCardInventory(cardInventory);
+            cardService.save(card);
+            return ResponseEntity.ok(card);
+        }
+        return ResponseEntity.notFound().build();
     }
 
 

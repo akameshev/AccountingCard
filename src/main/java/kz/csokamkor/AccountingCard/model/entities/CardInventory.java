@@ -1,36 +1,20 @@
 package kz.csokamkor.AccountingCard.model.entities;
 
 import jakarta.persistence.*;
+import kz.csokamkor.AccountingCard.model.enums.UnitOfMeasurement;
 
 @Entity
-@Table(name = "inventoryItems")
-public class InventoryItem {
+@Table(name = "cardInventories")
+public class CardInventory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "inventory_id")
-    private Inventory inventory;
-    private Double amount;
-
-    public InventoryItem(Inventory inventory, Double amount) {
-        this.inventory = inventory;
-        this.amount = amount;
-    }
-
-    public InventoryItem() {
-
-    }
-
-    public Inventory getInventory() {
-        return inventory;
-    }
-
-    public void setInventory(Inventory inventory) {
-        this.inventory = inventory;
-    }
+    private String name;
+    private String description;
+    private UnitOfMeasurement unitOfMeasurement;
+    private Double quantity;
 
     public Long getId() {
         return id;
@@ -40,11 +24,35 @@ public class InventoryItem {
         this.id = id;
     }
 
-    public Double getAmount() {
-        return amount;
+    public String getName() {
+        return name;
     }
 
-    public void setAmount(Double amount) {
-        this.amount = amount;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public UnitOfMeasurement getUnitOfMeasurement() {
+        return unitOfMeasurement;
+    }
+
+    public void setUnitOfMeasurement(UnitOfMeasurement unitOfMeasurement) {
+        this.unitOfMeasurement = unitOfMeasurement;
+    }
+
+    public Double getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Double quantity) {
+        this.quantity = quantity;
     }
 }
