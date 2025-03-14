@@ -5,6 +5,10 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+/**
+ * Эта сущность предназначена для хранения карточки учета
+ */
 @Entity
 @Table(name = "cards")
 public class Card {

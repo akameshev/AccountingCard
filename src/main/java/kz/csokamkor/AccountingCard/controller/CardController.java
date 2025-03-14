@@ -13,6 +13,14 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * По началу я испытывал некоторые сложности,
+ * по крайне мере при взаимодействии с front частью
+ * Именно поэтому я и создавал контроллер который отдавал бы JSON ответы,
+ * чтобы убедиться что функционал действительно работает.
+ * А после этого уже подключать front часть через Thymeleaf
+ * * */
+
 @Controller
 @RequestMapping("/cards/json")
 public class CardController {
@@ -48,21 +56,17 @@ public class CardController {
         return ResponseEntity.ok(card);
     }
 
-//    @PutMapping("/{id}")
-//    public ResponseEntity<Card> updateCard(@PathVariable Long id,@RequestBody Card card) {
-//        Optional<Card> optionalCard = Optional.of(cardService.findById(id));
-//        Card updatedCard = optionalCard.get();
-//        updatedCard.setCardInventories(card.getCardInventories());
-//        updatedCard.setCreationDate(LocalDate.of(LocalDate.now().getYear(), LocalDate.now().getMonth(), LocalDate.now().getDayOfMonth()));
-//        cardService.save(updatedCard);
-//        return ResponseEntity.ok(updatedCard);
-//    }
-
+    /**
+     * @param id - Идентификатор карточки
+     * @param inventoryId - идентификатор инвентаря
+     * @param quantity - количество инвентаря для добавления в карту
+     * @return JSON-объект, для добавления
+     * достаточно указать в запросе(помимо пути) "quantity": value(Например 20)
+     * */
     @PutMapping("/{id}/{inventoryId}/{quantity}")
     public ResponseEntity<Card> addCardInventories(@PathVariable Long id,
                                                    @PathVariable Long inventoryId,
                                                    @PathVariable double quantity) {
-
         CardInventory cardInventory = new CardInventory();
         cardInventoryService.addCardInventory(cardInventory,inventoryId,quantity);
         Optional<Card> optionalCard = Optional.of(cardService.findById(id));

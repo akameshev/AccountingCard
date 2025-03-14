@@ -3,6 +3,11 @@ package kz.csokamkor.AccountingCard.model.entities;
 import jakarta.persistence.*;
 import kz.csokamkor.AccountingCard.model.enums.UnitOfMeasurement;
 
+/**
+ * Эта сущность по сути является оберткой над Inventory.
+ * Данное решение было принято по причине необходимости добавления инвентаря
+ * в карточку учета
+ */
 @Entity
 @Table(name = "cardInventories")
 public class CardInventory {

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,12 +29,20 @@ public class CardPageController {
         this.cardInventoryService = cardInventoryService;
     }
 
+    /**
+     * @return общий список сущетсвующих карточек учета инвентаря
+     */
     @GetMapping("/all")
     public String getAllCards(Model model) {
         model.addAttribute("cards", cardService.findAll());
         return "cards/cards-all";
     }
 
+    /**
+     * @param id - Идентификатор карточки
+     * @return более детализированную информацию по карточке,
+     * с возможностью добавления новых позиций инвентаря
+     * */
     @GetMapping("/detail/{id}")
     public String getCardById(@PathVariable Long id, Model model) {
         model.addAttribute("basket", cardService.findById(id).getCardInventories());
@@ -50,10 +59,16 @@ public class CardPageController {
 
     @PostMapping("/add")
     public String createCard(@ModelAttribute("card") Card card) {
+        card.setCreationDate(LocalDate.now());
         cardService.save(card);
-        return "redirect:/cards";
+        return "redirect:/cards/all";
     }
 
+    /**
+     * @param id - Идентификатор карточки
+     * @return страницу с общим перечнем инвентаря,
+     * при удалении позиция просто исчезает
+     */
     @DeleteMapping("/{id}")
     public String deleteCard(@RequestParam("id") Long id) {
         cardService.deleteById(id);
@@ -87,6 +102,13 @@ public class CardPageController {
 //    }
     //endregion
 
+    /**
+     * @param id - Идентификатор карточки
+     * @param inventoryId - идентификатор инвентаря
+     * @param amount - количество инвентаря для добавления в карту
+     * @return страницу с детализацией по карте, с добавленным инвентарем,
+     * при добавлении инвентаря в карту, количество со склада автоматически списывается
+     */
     @PostMapping("/{id}/add-inventory")
     public String addInventory(@PathVariable Long id,
                                @RequestParam Long inventoryId,
@@ -119,7 +141,6 @@ public class CardPageController {
                 return "redirect:/cards/detail/" + id.toString();
             }
         }
-
         return "not-found";
     }
 
