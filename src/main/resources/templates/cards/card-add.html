@@ -20,9 +20,17 @@
       border: none;
       cursor: pointer;
       text-decoration: none;
+      display: inline-block;
+      text-align: center;
     }
     .btn:hover {
       background-color: #45a049;
+    }
+    .btn-danger {
+      background-color: #f44336;
+    }
+    .btn-danger:hover {
+      background-color: #d32f2f;
     }
     form {
       display: flex;
@@ -38,6 +46,11 @@
       margin-bottom: 10px;
       font-size: 16px;
     }
+    .btn-group {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+    }
   </style>
 </head>
 <body>
@@ -48,8 +61,11 @@
 
   <label for="creationDate">Дата создания:</label>
   <input type="date" id="creationDate" name="creationDate" placeholder="Задайте дату карты" required>
-  <button type="submit" class="btn">Сохранить Карту</button>
-  <a href="/cards/all" class="btn">Назад</a>
+  <div class="btn-group">
+    <button type="submit" class="btn">Сохранить Карту</button>
+    <a href="/cards/all" class="btn btn-danger">Назад</a>
+  </div>
+
 </form>
 </body>
 </html>

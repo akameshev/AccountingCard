@@ -31,4 +31,18 @@ public class InventoryService {
         inventoryRepository.deleteById(id);
     }
 
+    public Inventory update(Long id, Inventory inventory) {
+        Optional<Inventory> inventoryOptional = inventoryRepository.findById(id);
+        if (inventoryOptional.isPresent()) {
+            Inventory inventoryToUpdate = inventoryOptional.get();
+            inventoryToUpdate.setName(inventory.getName());
+            inventoryToUpdate.setDescription(inventory.getDescription());
+            inventoryToUpdate.setQuantity(inventory.getQuantity());
+            inventoryToUpdate.setUnitOfMeasurement(inventory.getUnitOfMeasurement());
+            return inventoryRepository.save(inventoryToUpdate);
+        }
+        return null;
+
+    }
+
 }

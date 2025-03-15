@@ -39,4 +39,11 @@ public class CardService {
     public void deleteById(Long id) {
         cardRepository.deleteById(id);
     }
+
+    public void deleteInventory(Long id, Long cardInventoryId) {
+        Card card = cardRepository.findById(id).orElse(null);
+        if (card != null) {
+            card.getCardInventories().remove(cardInventoryId);
+        }
+    }
 }

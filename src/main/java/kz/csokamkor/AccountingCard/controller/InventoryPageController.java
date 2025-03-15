@@ -41,6 +41,11 @@ public class InventoryPageController {
     public String createInventory() {
         return "inventories/inventory-add";
     }
+    @PostMapping("/update/{id}")
+    public String updateInventory(@PathVariable Long id, @ModelAttribute("inventory") Inventory inventory) {
+        inventoryService.update(id, inventory);
+        return "redirect:/inventories/all";
+    }
 
     @PostMapping("/add")
     public String addInventory(@ModelAttribute("inventory") Inventory inventory) {

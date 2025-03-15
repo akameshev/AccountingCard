@@ -42,7 +42,6 @@
 <h1 class="header">Список Инвентаря</h1>
 
 <a href="inventories/add" class="btn">Добавить инвентарь</a>
-<a href="/cards/all" class="btn">Просмотр карточек</a>
 <a href="/" class="btn">На главную</a>
 <table>
     <thead>
@@ -61,7 +60,7 @@
         <td><span th:text="${inventory.name}"></span></td>
         <td><span th:text="${inventory.unitOfMeasurement}"></span></td>
         <td><span th:text="${inventory.quantity}"></span></td>
-        <td><a th:href="@{/inventories/{id}(id=${inventory.id})}">Перейти</a></td>
+        <td><a th:href="@{/inventories/{id}(id=${inventory.id})}">Редактировать</a></td>
         <td><form th:action="@{/{id}(id=${inventory.id})}" method="post">
             <input type="hidden" name="_method" value="DELETE"/>
             <button type="submit" class="btn" style="background-color: #f44336;">Удалить</button>

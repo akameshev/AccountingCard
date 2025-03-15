@@ -164,5 +164,17 @@ public class CardPageController {
         return "not-found";
     }
 
+    @DeleteMapping("/{id}/{cardInventoryId}")
+    public String deleteInventory(@PathVariable Long id, @PathVariable Long cardInventoryId) {
+        Optional<Card> cardOptional = Optional.of(cardService.findById(id));
+        if (cardOptional.isPresent()) {
+            Card card = cardOptional.get();
+            cardService.deleteById(card.getId());
+            cardService.save(card);
+            return "redirect:/card-detail/" + id.toString();
+        }
+        return "not-found";
+    }
+
 
 }

@@ -20,9 +20,17 @@
       border: none;
       cursor: pointer;
       text-decoration: none;
+      display: inline-block;
+      text-align: center;
     }
     .btn:hover {
       background-color: #45a049;
+    }
+    .btn-danger {
+      background-color: #f44336;
+    }
+    .btn-danger:hover {
+      background-color: #d32f2f;
     }
     form {
       display: flex;
@@ -37,6 +45,11 @@
       padding: 8px;
       margin-bottom: 10px;
       font-size: 16px;
+    }
+    .btn-group {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
     }
   </style>
 </head>
@@ -58,9 +71,11 @@
 
   <label for="quantity">Количество:</label>
   <input type="number" id="quantity" name="quantity" placeholder="Введите количество" required step="0.01">
+  <div class="btn-group">
+    <button type="submit" class="btn">Сохранить инвентарь</button>
+    <a href="/inventories/all" class="btn btn-danger">Назад</a>
+  </div>
 
-  <button type="submit" class="btn">Сохранить инвентарь</button>
-  <a href="/inventories/all" class="btn">Назад</a>
 </form>
 </body>
 </html>
