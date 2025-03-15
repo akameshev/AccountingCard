@@ -38,6 +38,7 @@ public class CardInventoryService {
         Optional<Inventory> optionalInventory = inventoryService.findById(inventoryId);
         if (optionalInventory.isPresent()) {
             Inventory inventory = optionalInventory.get();
+            cardInventory.setCardInventoryNumber(inventory.getInventoryNumber());
             cardInventory.setName(inventory.getName());
             cardInventory.setDescription(inventory.getDescription());
             cardInventory.setUnitOfMeasurement(inventory.getUnitOfMeasurement());

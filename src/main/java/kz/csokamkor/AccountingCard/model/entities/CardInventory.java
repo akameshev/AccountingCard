@@ -3,6 +3,8 @@ package kz.csokamkor.AccountingCard.model.entities;
 import jakarta.persistence.*;
 import kz.csokamkor.AccountingCard.model.enums.UnitOfMeasurement;
 
+import java.util.UUID;
+
 /**
  * Эта сущность по сути является оберткой над Inventory.
  * Данное решение было принято по причине необходимости добавления инвентаря
@@ -15,7 +17,7 @@ public class CardInventory {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-
+    private UUID cardInventoryNumber;
     private String name;
     private String description;
     private UnitOfMeasurement unitOfMeasurement;
@@ -27,6 +29,15 @@ public class CardInventory {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public UUID getCardInventoryNumber() {
+        return cardInventoryNumber;
+    }
+
+
+    public void setCardInventoryNumber(UUID cardInventoryNumber) {
+        this.cardInventoryNumber = cardInventoryNumber;
     }
 
     public String getName() {

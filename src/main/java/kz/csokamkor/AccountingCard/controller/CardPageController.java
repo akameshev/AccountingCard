@@ -136,15 +136,15 @@ public class CardPageController {
         Optional<Card> cardOptional = Optional.of(cardService.findById(id));
         if (cardOptional.isPresent()) {
             if (cardService.findById(id)
-                    .findCardInventoryByName(inventoryService
+                    .findByCardInventoryByCardInventoryNumber(inventoryService
                             .findById(inventoryId)
                             .get()
-                            .getName()) != null) {
+                            .getInventoryNumber()) != null) {
                 CardInventory cardInventory = cardOptional
                         .get()
-                        .findCardInventoryByName(inventoryService.findById(inventoryId)
+                        .findByCardInventoryByCardInventoryNumber(inventoryService.findById(inventoryId)
                                 .get()
-                                .getName());
+                                .getInventoryNumber());
                 cardInventory.setQuantity(cardInventory.getQuantity() + amount);
                 cardInventoryService.save(cardInventory);
                 Inventory inventory = inventoryService.findById(inventoryId).get();

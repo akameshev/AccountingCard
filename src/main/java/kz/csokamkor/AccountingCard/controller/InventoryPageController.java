@@ -50,12 +50,12 @@ public class InventoryPageController {
     @PostMapping("/add")
     public String addInventory(@ModelAttribute("inventory") Inventory inventory) {
         inventoryService.save(inventory);
-        return "redirect:/all";
+        return "redirect:/inventories/all";
     }
     @DeleteMapping("/{id}")
     public String deleteInventory(@PathVariable Long id) {
         inventoryService.deleteById(id);
-        return "redirect:/all";
+        return "redirect:/inventories/all";
     }
 
 

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import java.beans.Transient;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class InventoryService {
@@ -42,7 +43,10 @@ public class InventoryService {
             return inventoryRepository.save(inventoryToUpdate);
         }
         return null;
+    }
 
+    public Optional<Inventory> findByInventoryNumber(UUID inventoryNumber) {
+        return inventoryRepository.findByInventoryNumber(inventoryNumber);
     }
 
 }

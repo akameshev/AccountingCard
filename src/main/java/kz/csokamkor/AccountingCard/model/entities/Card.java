@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Эта сущность предназначена для хранения карточки учета
@@ -90,6 +91,15 @@ public class Card {
                 return cardInventory;
             }
 
+        }
+        return null;
+    }
+    public CardInventory findByCardInventoryByCardInventoryNumber(UUID cardInventoryNumber) {
+        for (CardInventory cardInventory : cardInventories) {
+            if (cardInventory.getCardInventoryNumber().equals(cardInventoryNumber)) {
+                hasItem = true;
+                return cardInventory;
+            }
         }
         return null;
     }

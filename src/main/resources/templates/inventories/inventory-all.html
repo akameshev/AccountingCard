@@ -48,6 +48,7 @@
     <tr>
         <th>ID</th>
         <th>Имя</th>
+        <th>Номенклатурный номер</th>
         <th>Ед.Измерения</th>
         <th>Количество</th>
         <th>Перейти</th>
@@ -58,10 +59,11 @@
     <tr th:each="inventory : ${inventories}">
         <td><span th:text="${inventory.id}"></span></td>
         <td><span th:text="${inventory.name}"></span></td>
+        <td><span th:text="${inventory.inventoryNumber}"></span></td>
         <td><span th:text="${inventory.unitOfMeasurement}"></span></td>
         <td><span th:text="${inventory.quantity}"></span></td>
         <td><a th:href="@{/inventories/{id}(id=${inventory.id})}">Редактировать</a></td>
-        <td><form th:action="@{/{id}(id=${inventory.id})}" method="post">
+        <td><form th:action="@{/inventories/{id}(id=${inventory.id})}" method="post">
             <input type="hidden" name="_method" value="DELETE"/>
             <button type="submit" class="btn" style="background-color: #f44336;">Удалить</button>
         </form></td>

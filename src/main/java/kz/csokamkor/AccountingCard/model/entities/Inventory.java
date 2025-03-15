@@ -14,6 +14,7 @@ public class Inventory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private UUID inventoryNumber = UUID.randomUUID();
     private String name;
     private String description;
     private UnitOfMeasurement unitOfMeasurement;
@@ -33,6 +34,14 @@ public class Inventory {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public UUID getInventoryNumber() {
+        return inventoryNumber;
+    }
+
+    public void setInventoryNumber(UUID inventoryNumber) {
+        this.inventoryNumber = inventoryNumber;
     }
 
     public String getDescription() {

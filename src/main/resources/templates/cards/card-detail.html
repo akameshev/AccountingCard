@@ -58,6 +58,7 @@
             <thead>
                 <tr>
                     <th>id</th>
+                    <th>Номенклатурный номер</th>
                     <th>Наименование</th>
                     <th>Единица измерения</th>
                     <th>Количество на складе</th>
@@ -66,6 +67,7 @@
             <tbody>
                 <tr th:each="inventory: ${basket}">
                     <td><span th:text="${inventory.id}"></span></td>
+                    <td><span th:text="${inventory.cardInventoryNumber}"></span></td>
                     <td><span th:text="${inventory.name}"></span></td>
                     <td><span th:text="${inventory.unitOfMeasurement}"></span></td>
                     <td><span th:text="${inventory.quantity}"></span></td>
@@ -80,6 +82,7 @@
         <thead>
             <tr>
                 <th>Id</th>
+                <th>Номенклатурный номер</th>
                 <th>Имя</th>
                 <th>Описание</th>
                 <th>Ед.измерения</th>
@@ -89,6 +92,7 @@
         <tbody>
             <tr th:each="inventory:${inventories}">
                 <td><span th:text="${inventory.getId()}"></span></td>
+                <td><span th:text="${inventory.getInventoryNumber()}"></span></td>
                 <td><span th:text="${inventory.getName()}"></span></td>
                 <td><span th:text="${inventory.getDescription()}"></span></td>
                 <td><span th:text="${inventory.getUnitOfMeasurement()}"></span></td>
