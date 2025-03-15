@@ -3,6 +3,8 @@ package kz.csokamkor.AccountingCard.model.entities;
 import jakarta.persistence.*;
 import kz.csokamkor.AccountingCard.model.enums.UnitOfMeasurement;
 
+import java.util.UUID;
+
 /**
  * Эта сущность предназначена для хранения инвентаря
  */
